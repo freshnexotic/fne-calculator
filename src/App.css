@@ -1,0 +1,57 @@
+header p {
+  width: 80%;
+  margin: 5px 0;
+}
+
+header h1.ui.header {
+  margin-bottom: 5px;
+  color: #ff9933;
+}
+
+.calculator-container {
+  margin-top:2rem !important;
+}
+
+.category-container {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.item-label-premium {
+  font-weight: bold;
+  color:#000 !important;
+  font-size: 16px;
+}
+
+.calculator-container .price-header{
+  font-size: 4rem !important;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.sticky-price {
+  position: fixed; 
+  top: 55%;
+  transform: translateY(-50%);
+  right: 15%;
+  text-align: center; 
+  z-index: 1000; /* Make sure it's above other content */
+}
+
+.sticky-price input[type="range"] {
+  width: 100%;
+}
+
+.sticky-price .people-range-container div {
+  margin-bottom: 5px;
+}
+
+.sticky-price .people-label,
+.sticky-price .items-label{
+  font-size: 16px !important;
+  margin-top:5px;
+}
+
+.sticky-price .actions {
+  margin-top:10px;
+}
