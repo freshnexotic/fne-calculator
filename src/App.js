@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Checkbox, Button, Divider, Header, Grid, Input, Image, List } from 'semantic-ui-react';
+import { Form, Checkbox, Button, Divider, Header, Grid, Input, Image, List, TextArea } from 'semantic-ui-react';
 import _ from "lodash"
 import './App.css'; // Import custom CSS
 
@@ -8,6 +8,7 @@ const CateringForm = () => {
   const [additionalItems, setAdditionalItems] = useState({});
   const [numPeople, setNumPeople] = useState(20); // Default number of people
   const [totalPrice, setTotalPrice] = useState(0);
+  const [additionalInfo, setAdditionalInfo] = useState("");
   const STARTER_ITEM_LIMIT = 5;
   const ADDITIONAL_ITEM_PRICE = 3;
 
@@ -32,10 +33,20 @@ const CateringForm = () => {
       name: 'Appetizer',
       key: 'appetizers',
       items: [
-        { name: 'Shrimp Cocktail**', premium: '**' },
+        { name: 'Shrimp Cocktail', premium: '**' },
         { name: 'Meatballs' },
         { name: 'Stuffed Mushroom' },
         { name: 'Crab Cakes' },
+        { name: 'Coconut Shrimp', premium: '**' },
+        { name: 'Salsa & Chips' },
+        { name: 'Charcuterie Board', premium: '***' },
+        { name: 'Veggie Platter' },
+        { name: 'Fruit Platter' },
+        { name: 'Hot Crab Dip' },
+        { name: 'Hot Spinach & Artichoke Dip' },
+        { name: 'Chicken Wings' },
+        { name: 'Fried Plantains' },
+        { name: 'Fried Sweet Plantains' }
       ]
     },
     {
@@ -44,6 +55,15 @@ const CateringForm = () => {
       items: [
         { name: 'Eggplant Parmigiana Pasta' },
         { name: 'Chicken Parmigiana Pasta' },
+        { name: 'Meatballs Pasta' },
+        { name: 'Chicken Parm Pasta' },
+        { name: 'Chicken Broccoli & Ziti Pasta' },
+        { name: 'Vegetable Lasagna' },
+        { name: 'Meat Lasagna' },
+        { name: 'Stuffed Shells Pasta' },
+        { name: 'Sausage Pepper & Onions Pasta' },
+        { name: 'Baked Macaroni & Cheese' },
+        { name: 'Veggie Pasta' }
       ]
     },
     {
@@ -52,6 +72,8 @@ const CateringForm = () => {
       items: [
         { name: 'Mixed Tray Of Different Sandwiches' },
         { name: 'Pulled Pork Sandwich' },
+        { name: 'BLT Sandwich' },
+        { name: 'Tuna Melt Sandwich' }
       ]
     },
     {
@@ -61,16 +83,45 @@ const CateringForm = () => {
         { name: 'Jerk Chicken' },
         { name: 'Curry Chicken' },
         { name: 'Chicken Stew' },
+        { name: 'Grilled Chicken' },
+        { name: 'Fried Chicken' },
+        { name: 'Chicken Skewers' },
+        { name: 'Pulled Pork' },
+        { name: 'Grilled Pork' },
+        { name: 'Fried Pork' },
+        { name: 'Pork Skewers' },
+        { name: 'Roasted Pork' },
+        { name: 'Beef Stew' },
+        { name: 'Grilled Beef' },
+        { name: 'Beef Skewers' },
+        { name: 'Fried Goat' },
+        { name: 'Curry Goat' },
+        { name: 'Goat Stew' },
+        { name: 'Grilled Goat' },
+        { name: 'Grilled Lamb' },
+        { name: 'Lamb Stew' }
       ]
     },
     {
-      name: 'Seafood**',
+      name: 'Seafood',
       key: 'seafood',
       items: [
         { name: 'Salmon Jerk', premium: '**' },
         { name: 'Salmon Honey Glazed', premium: '**' },
         { name: 'Grilled Salmon', premium: '**' },
         { name: 'Salmon Bites', premium: '**' },
+        { name: 'Grilled Shrimp', premium: '**' },
+        { name: 'Fried Shrimp', premium: '**' },
+        { name: 'Shrimp Skewers', premium: '**' },
+        { name: 'Shrimp Stew', premium: '**' },
+        { name: 'Shrimp Creole', premium: '**' },
+        { name: 'Grilled Cod', premium: '**' },
+        { name: 'Cod Stew', premium: '**' },
+        { name: 'Grilled Red Snapper', premium: '**' },
+        { name: 'Fried Red Snapper', premium: '**' },
+        { name: 'Red Snapper Stew', premium: '**' },
+        { name: 'Conch Stew', premium: '**' },
+        { name: 'Clam Baked', premium: '**' }
       ]
     },
     {
@@ -79,6 +130,11 @@ const CateringForm = () => {
       items: [
         { name: 'Caesar Salad' },
         { name: 'Greek Salad' },
+        { name: 'Fruit Salad' },
+        { name: 'Cobb Salad' },
+        { name: 'Southwest' },
+        { name: 'Pasta Salad' },
+        { name: 'Potato Salad' }
       ]
     },
     {
@@ -88,27 +144,29 @@ const CateringForm = () => {
         { name: 'White Rice' },
         { name: 'Veggie Rice' },
         { name: 'Plantains' },
+        { name: 'Mashed Potatoes' },
+        { name: 'Baked Potato' },
+        { name: 'Steamed Veggies' },
+        { name: 'Sauteed Veggies' },
+        { name: 'Corn On The Cob' },
+        { name: 'Rice and Red Beans' },
+        { name: 'Rice and Lima Beans' },
+        { name: 'Roasted Parm Potatoes' }
       ]
     },
     {
       name: 'Dessert',
       key: 'desserts',
       items: [
-        { name: 'Cookies' },
-        { name: 'Brownies' },
-      ]
-    },
-    {
-      name: 'Beverage',
-      key: 'beverage',
-      items: [
-        { name: 'None - The hosts will provide all of the beverage' },
-        { name: 'Non-Alcoholic Beverages - (Soda - Water)' },
-        { name: 'Signature Mocktails' },
-        { name: 'Coffee/Tea Station' }
+        { name: 'Cookies', premium: '*' },
+        { name: 'Brownies', premium: '*' },
+        { name: 'Carrot Cake', premium: '*' },
+        { name: 'Chocolate Cake', premium: '*' },
+        { name: 'Cupcakes', premium: '*' },
+        { name: 'Vanilla Bean Cheesecake', premium: '*' }
       ]
     }
-  ];
+  ];  
 
   // Determine the pricing tier based on the number of people
   const getPricingTier = () => {
@@ -134,25 +192,25 @@ const CateringForm = () => {
       additionalPrice += additionalItemsCount * ADDITIONAL_ITEM_PRICE * numPeople;
     }
 
-    // Additional item prices for explicitly selected additional items
-    for (const categoryKey in additionalItems) {
-      for (const itemName in additionalItems[categoryKey]) {
-        if (additionalItems[categoryKey][itemName]) {
-          let itemPrice = additionalItemPricing[categoryKey] || ADDITIONAL_ITEM_PRICE;
-          if (categoryKey === 'desserts') {
-            itemPrice = numPeople <= 99 ? 4 : 3.5;
-          }
+    // // Additional item prices for explicitly selected additional items
+    // for (const categoryKey in additionalItems) {
+    //   for (const itemName in additionalItems[categoryKey]) {
+    //     if (additionalItems[categoryKey][itemName]) {
+    //       let itemPrice = additionalItemPricing[categoryKey] || ADDITIONAL_ITEM_PRICE;
+    //       if (categoryKey === 'desserts') {
+    //         itemPrice = numPeople <= 99 ? 4 : 3.5;
+    //       }
 
-          // Check for premium property and add premium cost if applicable
-          const premiumMultiplier = categories
-            .find(category => category.key === categoryKey)
-            ?.items.find(item => item.name === itemName)?.premium?.length || 0;
-          const premiumCost = premiumMultiplier * 1 * numPeople;
+    //       // Check for premium property and add premium cost if applicable
+    //       const premiumMultiplier = categories
+    //         .find(category => category.key === categoryKey)
+    //         ?.items.find(item => item.name === itemName)?.premium?.length || 0;
+    //       const premiumCost = premiumMultiplier * 1 * numPeople;
 
-          additionalPrice += (itemPrice * numPeople) + premiumCost;
-        }
-      }
-    }
+    //       additionalPrice += (itemPrice * numPeople) + premiumCost;
+    //     }
+    //   }
+    // }
 
     // Calculate premium cost for base items
     for (const categoryKey in baseItems) {
@@ -233,6 +291,20 @@ const CateringForm = () => {
     });
   };
 
+  const MenuItemDisplay = ({ item }) => {
+
+    if(_.has(item, 'premium')) {
+      const asteriskCount = (item.premium.match(/\*/g) || []).length;
+      return (
+        <div>
+          <span>{item.name}</span>
+          <span className="item-label-premium">{'*'.repeat(asteriskCount)}</span>
+        </div>
+      );
+    }
+    return  <span>{item.name}</span>
+  };
+
   const buildUrlWithParams = () => {
     const baseUrl = "https://forms.zohopublic.com/freshandexotic/form/CateringPackages1/formperma/TR0VVENo1C_fhm61oYAjrR2O0FB7p5dWFzXf2MIJacY";
     const categoryParamMap = {
@@ -241,9 +313,9 @@ const CateringForm = () => {
       sandwiches: 'saw',
       meat: 'meats',
       seafood: 'sfds',
-      salad: 'salds',
+      salad: 'salads',
       sides: 'sides',
-      desserts: 'dsrts'
+      desserts: 'dsrts',
     };
   
     const params = new URLSearchParams();
@@ -264,6 +336,8 @@ const CateringForm = () => {
     for (const categoryKey in additionalItems) {
       addItemsToParams(additionalItems[categoryKey], categoryKey);
     }
+
+    params.append("info", additionalInfo);
   
     return `${baseUrl}?${params.toString().replace(/\+/g, '%20')}`;
   };
@@ -272,7 +346,7 @@ const CateringForm = () => {
   const selectedBaseItemsCount = countSelectedBaseItems();
   
   return (
-    <Grid stackable centered padded>
+    <Grid stackable centered padded className='fne-calculator-container'>
       <Grid.Column width={12}>
         <Grid.Row>
           <Grid.Column width={8}>
@@ -300,7 +374,7 @@ const CateringForm = () => {
                         {category.items.map((item, idx) => (
                           <Form.Field key={idx} className="item-field">
                             <Checkbox
-                              label={item.name}
+                              label={{ children: <MenuItemDisplay item={item}/> }} 
                               className="item-checkbox"
                               checked={
                                 baseItems[category.key]?.[item.name] || additionalItems[category.key]?.[item.name] || false
@@ -321,10 +395,10 @@ const CateringForm = () => {
                         {/* <Divider /> */}
                       </div>
                     ))}
-  
-                    <Button type="submit" onClick={handleSubmit} className="submit-button">
-                      Submit
-                    </Button>
+                    <Form.Field key={'additionalInformation'} className="item-field">
+                      <Header as="h4" className="category-header"><label>Additional Information</label></Header>
+                      <TextArea placeholder='Additional Information' style={{ minHeight: 100 }} onChange={(e, { value }) => setAdditionalInfo(value)}/>
+                    </Form.Field>  
                   </Form>
                 </Grid.Column>
   
@@ -358,8 +432,9 @@ const CateringForm = () => {
                         disabled={_.size(flattenBaseItems(baseItems)) < STARTER_ITEM_LIMIT}
                         as="a" 
                         size='small' 
+                        primary
                         href={buildUrlWithParams()}>
-                          Place Your Request
+                          Next Step
                       </Button>
                     </div>
                   </div>
