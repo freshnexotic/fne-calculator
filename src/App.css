@@ -1,3 +1,7 @@
+body {
+  font-size: 15px !important;
+}
+
 header p {
   width: 80%;
   margin: 5px 0;
@@ -37,24 +41,95 @@ header h1.ui.header {
   z-index: 1000; /* Make sure it's above other content */
 }
 
-.sticky-price input[type="range"] {
-  width: 100%;
-}
-
 .sticky-price .people-range-container div {
   margin-bottom: 5px;
 }
 
-.sticky-price .people-label,
+.sticky-price .people-label{
+  font-size: 18px !important;
+  margin-top:10px;
+  font-weight: bold;
+}
+
 .sticky-price .items-label{
-  font-size: 16px !important;
+  font-size: 18px !important;
   margin-top:5px;
+  font-weight: bold;
 }
 
 .sticky-price .actions {
-  margin-top:10px;
+  margin-top:15px;
 }
 
 .catering-form-column {
   padding-bottom: 3rem !important;
 }
+
+.people-range-input > input {
+  width: 100% !important;
+  border: 0 !important;
+}
+
+.people-range-input {
+  width: 280px;
+}
+
+@media only screen and (max-width: 767px) {
+  .sticky-price {
+    border:1px solid #ccc !important;
+    width: 160px !important;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 2%;
+    text-align: right;
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 1.5rem 1rem 1rem 1rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+  }
+  .sticky-price .price-header{
+    font-size: 2.25rem !important;
+    margin-bottom: 1.5rem !important;
+    order:4;
+  }
+
+  /* .sticky-price .people-labels,
+  .sticky-price .items-label,
+  .sticky-price .actions{
+    display: none;
+  } */
+
+  .people-range-container {
+    order:2;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .people-range-container + div {
+    margin-bottom: 1.5rem !important;
+    order:1;
+  }
+
+  .sticky-price .actions{
+    order:5;
+  }
+  
+  .sticky-price .actions > button,
+  .sticky-price .actions > a.button{
+    font-size: 0.75rem !important;
+  }
+
+  .people-range-input {
+    width: 100px;
+  }
+
+  .people-range-input > input {
+    border: 0 !important;
+    padding:1px !important;
+  }
+
+}
+

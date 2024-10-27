@@ -356,8 +356,8 @@ const CateringForm = () => {
                 size="small"
               />
               <Header as={"h1"} content="STARTERS PACKAGE" />
-              <p>Explore our budget-friendly starters catering package, you can select any 5 items from our extensive menu. Any extra choices beyond these 5 will incur an additional charge.</p>
-              <p style={{color:"red", fontWeight:"bold"}}>- Items marked with (*) are premium items and will have an additional charge.</p>
+              <p style={{color:"black", fontWeight:"400", marginTop:"10px"}}>Use this pricing calculator to explore our budget-friendly starters catering package, you can select any 5 items from our extensive menu. Any extra choices beyond these 5 will incur an additional charge.</p>
+              <p style={{color:"red", fontWeight:"bold", marginTop:"10px"}}>- Items marked with (*) are premium items and will have an additional charge.</p>
               <p style={{color:"red", fontWeight:"bold"}}>- Desserts are not included in the starter package and will be priced separately</p>
               <List items={['20-49 people: 21$', '50-99 people: 19$', '100+ people: 17$']} bulleted/>
             </header>
@@ -384,11 +384,8 @@ const CateringForm = () => {
                                   ? handleBaseItemChange(category.key, item)
                                   : handleAdditionalItemChange(category.key, item)
                               }
-                              disabled={
-                                selectedBaseItemsCount >= baseItemLimit &&
-                                !baseItems[category.key]?.[item.name] &&
-                                !additionalItems[category.key]?.[item.name]
-                              }
+                              readOnly={category.key === "desserts" && _.size(flattenBaseItems(baseItems)) < 5}
+                              disabled={selectedBaseItemsCount >= baseItemLimit}
                             />
                           </Form.Field>
                         ))}
@@ -410,7 +407,7 @@ const CateringForm = () => {
                     <div className="people-range-container">
                       <div>
                         <Input 
-                          type="number" 
+                          type="range" 
                           id="guests" 
                           name="guests" 
                           min="20"
@@ -423,8 +420,8 @@ const CateringForm = () => {
                       </div>
                     </div>
                     <div>
-                      <div className="people-label">Approximate Guests: {numPeople}</div>
-                      <div className="items-label">Items Selected: {_.size(flattenBaseItems(baseItems))}</div>
+                      <div className="items-label">Items: {_.size(flattenBaseItems(baseItems))}</div>
+                      <div className="people-label">Guests: {numPeople}</div>
                     </div>
                     <div className="actions">
                       <Button size='small' onClick={resetHandler}>Reset</Button>
@@ -434,7 +431,7 @@ const CateringForm = () => {
                         size='small' 
                         primary
                         href={buildUrlWithParams()}>
-                          Next Step
+                          Next
                       </Button>
                     </div>
                   </div>
