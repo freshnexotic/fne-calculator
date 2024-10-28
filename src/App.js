@@ -232,7 +232,7 @@ const CateringForm = () => {
   useEffect(() => {
     let x = calculateTotalPrice()
     setTotalPrice(x);
-  }, [baseItems, additionalItems, numPeople, calculateTotalPrice]);
+  }, [baseItems, additionalItems, numPeople]);
 
   const handleBaseItemChange = (category, item) => {
     const isSelected = baseItems[category]?.[item.name] || false;
@@ -271,11 +271,11 @@ const CateringForm = () => {
     );
   };
 
-  const handleSubmit = () => {
-    console.log('Additional Items:', additionalItems);
-    console.log('Number of People:', numPeople);
-    console.log('Total Price:', totalPrice);
-  };
+  // const handleSubmit = () => {
+  //   console.log('Additional Items:', additionalItems);
+  //   console.log('Number of People:', numPeople);
+  //   console.log('Total Price:', totalPrice);
+  // };
 
   function resetHandler() {
     setTotalPrice(0);
