@@ -271,11 +271,11 @@ const CateringForm = () => {
     );
   };
 
-  const handleSubmit = () => {
-    console.log('Additional Items:', additionalItems);
-    console.log('Number of People:', numPeople);
-    console.log('Total Price:', totalPrice);
-  };
+  // const handleSubmit = () => {
+  //   console.log('Additional Items:', additionalItems);
+  //   console.log('Number of People:', numPeople);
+  //   console.log('Total Price:', totalPrice);
+  // };
 
   function resetHandler() {
     setTotalPrice(0);
