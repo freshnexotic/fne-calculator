@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Checkbox, Button, Divider, Header, Grid, Input, Image, List, TextArea } from 'semantic-ui-react';
+import { Form, Checkbox, Button, Header, Grid, Input, Image, List, TextArea } from 'semantic-ui-react';
 import _ from "lodash"
 import './App.css'; // Import custom CSS
 
@@ -17,16 +17,16 @@ const CateringForm = () => {
     starters: { '20-49': 21, '50-99': 19, '100+': 17 }
   };
 
-  const additionalItemPricing = {
-    appetizers: ADDITIONAL_ITEM_PRICE,
-    pasta: ADDITIONAL_ITEM_PRICE,
-    sandwiches: ADDITIONAL_ITEM_PRICE,
-    meat: ADDITIONAL_ITEM_PRICE,
-    seafood: ADDITIONAL_ITEM_PRICE,
-    salad: ADDITIONAL_ITEM_PRICE,
-    sides: ADDITIONAL_ITEM_PRICE,
-    desserts: ADDITIONAL_ITEM_PRICE
-  };
+  // const additionalItemPricing = {
+  //   appetizers: ADDITIONAL_ITEM_PRICE,
+  //   pasta: ADDITIONAL_ITEM_PRICE,
+  //   sandwiches: ADDITIONAL_ITEM_PRICE,
+  //   meat: ADDITIONAL_ITEM_PRICE,
+  //   seafood: ADDITIONAL_ITEM_PRICE,
+  //   salad: ADDITIONAL_ITEM_PRICE,
+  //   sides: ADDITIONAL_ITEM_PRICE,
+  //   desserts: ADDITIONAL_ITEM_PRICE
+  // };
 
   const categories = [
     {
@@ -230,7 +230,8 @@ const CateringForm = () => {
   };
 
   useEffect(() => {
-    setTotalPrice(calculateTotalPrice());
+    let x = calculateTotalPrice()
+    setTotalPrice(x);
   }, [baseItems, additionalItems, numPeople]);
 
   const handleBaseItemChange = (category, item) => {
@@ -389,7 +390,6 @@ const CateringForm = () => {
                             />
                           </Form.Field>
                         ))}
-                        {/* <Divider /> */}
                       </div>
                     ))}
                     <Form.Field key={'additionalInformation'} className="item-field">
