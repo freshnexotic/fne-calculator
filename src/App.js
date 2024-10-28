@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Form, Checkbox, Button, Header, Grid, Input, Image, List, TextArea } from 'semantic-ui-react';
 import _ from "lodash"
 import './App.css'; // Import custom CSS
@@ -17,17 +17,6 @@ const CateringForm = () => {
     starters: { '20-49': 21, '50-99': 19, '100+': 17 }
   };
 
-  // const additionalItemPricing = {
-  //   appetizers: ADDITIONAL_ITEM_PRICE,
-  //   pasta: ADDITIONAL_ITEM_PRICE,
-  //   sandwiches: ADDITIONAL_ITEM_PRICE,
-  //   meat: ADDITIONAL_ITEM_PRICE,
-  //   seafood: ADDITIONAL_ITEM_PRICE,
-  //   salad: ADDITIONAL_ITEM_PRICE,
-  //   sides: ADDITIONAL_ITEM_PRICE,
-  //   desserts: ADDITIONAL_ITEM_PRICE
-  // };
-
   const categories = [
     {
       name: 'Appetizer',
@@ -35,18 +24,7 @@ const CateringForm = () => {
       items: [
         { name: 'Shrimp Cocktail', premium: '**' },
         { name: 'Meatballs' },
-        { name: 'Stuffed Mushroom' },
-        { name: 'Crab Cakes' },
-        { name: 'Coconut Shrimp', premium: '**' },
-        { name: 'Salsa & Chips' },
-        { name: 'Charcuterie Board', premium: '***' },
-        { name: 'Veggie Platter' },
-        { name: 'Fruit Platter' },
-        { name: 'Hot Crab Dip' },
-        { name: 'Hot Spinach & Artichoke Dip' },
-        { name: 'Chicken Wings' },
-        { name: 'Fried Plantains' },
-        { name: 'Fried Sweet Plantains' }
+        { name: 'Stuffed Mushroom' }
       ]
     },
     {
@@ -55,15 +33,6 @@ const CateringForm = () => {
       items: [
         { name: 'Eggplant Parmigiana Pasta' },
         { name: 'Chicken Parmigiana Pasta' },
-        { name: 'Meatballs Pasta' },
-        { name: 'Chicken Parm Pasta' },
-        { name: 'Chicken Broccoli & Ziti Pasta' },
-        { name: 'Vegetable Lasagna' },
-        { name: 'Meat Lasagna' },
-        { name: 'Stuffed Shells Pasta' },
-        { name: 'Sausage Pepper & Onions Pasta' },
-        { name: 'Baked Macaroni & Cheese' },
-        { name: 'Veggie Pasta' }
       ]
     },
     {
@@ -82,88 +51,6 @@ const CateringForm = () => {
       items: [
         { name: 'Jerk Chicken' },
         { name: 'Curry Chicken' },
-        { name: 'Chicken Stew' },
-        { name: 'Grilled Chicken' },
-        { name: 'Fried Chicken' },
-        { name: 'Chicken Skewers' },
-        { name: 'Pulled Pork' },
-        { name: 'Grilled Pork' },
-        { name: 'Fried Pork' },
-        { name: 'Pork Skewers' },
-        { name: 'Roasted Pork' },
-        { name: 'Beef Stew' },
-        { name: 'Grilled Beef' },
-        { name: 'Beef Skewers' },
-        { name: 'Fried Goat' },
-        { name: 'Curry Goat' },
-        { name: 'Goat Stew' },
-        { name: 'Grilled Goat' },
-        { name: 'Grilled Lamb' },
-        { name: 'Lamb Stew' }
-      ]
-    },
-    {
-      name: 'Seafood',
-      key: 'seafood',
-      items: [
-        { name: 'Salmon Jerk', premium: '**' },
-        { name: 'Salmon Honey Glazed', premium: '**' },
-        { name: 'Grilled Salmon', premium: '**' },
-        { name: 'Salmon Bites', premium: '**' },
-        { name: 'Grilled Shrimp', premium: '**' },
-        { name: 'Fried Shrimp', premium: '**' },
-        { name: 'Shrimp Skewers', premium: '**' },
-        { name: 'Shrimp Stew', premium: '**' },
-        { name: 'Shrimp Creole', premium: '**' },
-        { name: 'Grilled Cod', premium: '**' },
-        { name: 'Cod Stew', premium: '**' },
-        { name: 'Grilled Red Snapper', premium: '**' },
-        { name: 'Fried Red Snapper', premium: '**' },
-        { name: 'Red Snapper Stew', premium: '**' },
-        { name: 'Conch Stew', premium: '**' },
-        { name: 'Clam Baked', premium: '**' }
-      ]
-    },
-    {
-      name: 'Salad',
-      key: 'salad',
-      items: [
-        { name: 'Caesar Salad' },
-        { name: 'Greek Salad' },
-        { name: 'Fruit Salad' },
-        { name: 'Cobb Salad' },
-        { name: 'Southwest' },
-        { name: 'Pasta Salad' },
-        { name: 'Potato Salad' }
-      ]
-    },
-    {
-      name: 'Sides',
-      key: 'sides',
-      items: [
-        { name: 'White Rice' },
-        { name: 'Veggie Rice' },
-        { name: 'Plantains' },
-        { name: 'Mashed Potatoes' },
-        { name: 'Baked Potato' },
-        { name: 'Steamed Veggies' },
-        { name: 'Sauteed Veggies' },
-        { name: 'Corn On The Cob' },
-        { name: 'Rice and Red Beans' },
-        { name: 'Rice and Lima Beans' },
-        { name: 'Roasted Parm Potatoes' }
-      ]
-    },
-    {
-      name: 'Dessert',
-      key: 'desserts',
-      items: [
-        { name: 'Cookies', premium: '*' },
-        { name: 'Brownies', premium: '*' },
-        { name: 'Carrot Cake', premium: '*' },
-        { name: 'Chocolate Cake', premium: '*' },
-        { name: 'Cupcakes', premium: '*' },
-        { name: 'Vanilla Bean Cheesecake', premium: '*' }
       ]
     }
   ];  
@@ -176,7 +63,7 @@ const CateringForm = () => {
   };
 
   // Calculate the total price based on the selected items and package
-  function calculateTotalPrice() {
+  const calculateTotalPrice = useCallback(() => {
     let basePrice = 0;
     const pricingTier = getPricingTier();
 
@@ -191,26 +78,6 @@ const CateringForm = () => {
       const additionalItemsCount = selectedBaseItemsCount - STARTER_ITEM_LIMIT;
       additionalPrice += additionalItemsCount * ADDITIONAL_ITEM_PRICE * numPeople;
     }
-
-    // // Additional item prices for explicitly selected additional items
-    // for (const categoryKey in additionalItems) {
-    //   for (const itemName in additionalItems[categoryKey]) {
-    //     if (additionalItems[categoryKey][itemName]) {
-    //       let itemPrice = additionalItemPricing[categoryKey] || ADDITIONAL_ITEM_PRICE;
-    //       if (categoryKey === 'desserts') {
-    //         itemPrice = numPeople <= 99 ? 4 : 3.5;
-    //       }
-
-    //       // Check for premium property and add premium cost if applicable
-    //       const premiumMultiplier = categories
-    //         .find(category => category.key === categoryKey)
-    //         ?.items.find(item => item.name === itemName)?.premium?.length || 0;
-    //       const premiumCost = premiumMultiplier * 1 * numPeople;
-
-    //       additionalPrice += (itemPrice * numPeople) + premiumCost;
-    //     }
-    //   }
-    // }
 
     // Calculate premium cost for base items
     for (const categoryKey in baseItems) {
@@ -227,12 +94,12 @@ const CateringForm = () => {
 
     const total = basePrice + additionalPrice;
     return total < 0 ? 0 : total; // Ensure total is not negative
-  };
+  }, [baseItems, numPeople, STARTER_ITEM_LIMIT, ADDITIONAL_ITEM_PRICE, packagePricing, categories]);
 
   useEffect(() => {
     let x = calculateTotalPrice()
     setTotalPrice(x);
-  }, [baseItems, additionalItems, numPeople]);
+  }, [baseItems, additionalItems, numPeople, calculateTotalPrice]);
 
   const handleBaseItemChange = (category, item) => {
     const isSelected = baseItems[category]?.[item.name] || false;
@@ -271,11 +138,11 @@ const CateringForm = () => {
     );
   };
 
-  // const handleSubmit = () => {
-  //   console.log('Additional Items:', additionalItems);
-  //   console.log('Number of People:', numPeople);
-  //   console.log('Total Price:', totalPrice);
-  // };
+  const handleSubmit = () => {
+    console.log('Additional Items:', additionalItems);
+    console.log('Number of People:', numPeople);
+    console.log('Total Price:', totalPrice);
+  };
 
   function resetHandler() {
     setTotalPrice(0);
@@ -293,7 +160,6 @@ const CateringForm = () => {
   };
 
   const MenuItemDisplay = ({ item }) => {
-
     if(_.has(item, 'premium')) {
       const asteriskCount = (item.premium.match(/\*/g) || []).length;
       return (
