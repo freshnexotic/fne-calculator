@@ -11,8 +11,6 @@
 # production
 /build
 
-# public
-/public
 
 # lock
 *-lock.json
