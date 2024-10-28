@@ -175,63 +175,63 @@ const CateringForm = () => {
     return '100+';
   };
 
-  // Calculate the total price based on the selected items and package
-  const calculateTotalPrice = () => {
-    let basePrice = 0;
-    const pricingTier = getPricingTier();
-
-    const selectedBaseItemsCount = countSelectedBaseItems();
-    if (selectedBaseItemsCount > 0) {
-      basePrice = packagePricing['starters'][pricingTier] * numPeople;
-    }
-
-    // Additional item prices for items beyond the package limit
-    let additionalPrice = 0;
-    if (selectedBaseItemsCount > STARTER_ITEM_LIMIT) {
-      const additionalItemsCount = selectedBaseItemsCount - STARTER_ITEM_LIMIT;
-      additionalPrice += additionalItemsCount * ADDITIONAL_ITEM_PRICE * numPeople;
-    }
-
-    // // Additional item prices for explicitly selected additional items
-    // for (const categoryKey in additionalItems) {
-    //   for (const itemName in additionalItems[categoryKey]) {
-    //     if (additionalItems[categoryKey][itemName]) {
-    //       let itemPrice = additionalItemPricing[categoryKey] || ADDITIONAL_ITEM_PRICE;
-    //       if (categoryKey === 'desserts') {
-    //         itemPrice = numPeople <= 99 ? 4 : 3.5;
-    //       }
-
-    //       // Check for premium property and add premium cost if applicable
-    //       const premiumMultiplier = categories
-    //         .find(category => category.key === categoryKey)
-    //         ?.items.find(item => item.name === itemName)?.premium?.length || 0;
-    //       const premiumCost = premiumMultiplier * 1 * numPeople;
-
-    //       additionalPrice += (itemPrice * numPeople) + premiumCost;
-    //     }
-    //   }
-    // }
-
-    // Calculate premium cost for base items
-    for (const categoryKey in baseItems) {
-      for (const itemName in baseItems[categoryKey]) {
-        if (baseItems[categoryKey][itemName]) {
-          const premiumMultiplier = categories
-            .find(category => category.key === categoryKey)
-            ?.items.find(item => item.name === itemName)?.premium?.length || 0;
-          const premiumCost = premiumMultiplier * 1 * numPeople;
-          additionalPrice += premiumCost;
-        }
-      }
-    }
-
-    const total = basePrice + additionalPrice;
-    return total < 0 ? 0 : total; // Ensure total is not negative
-  };
 
   useEffect(() => {
-    let x = calculateTotalPrice()
-    setTotalPrice(x);
+    // Calculate the total price based on the selected items and package
+    const calculateTotalPrice = () => {
+      let basePrice = 0;
+      const pricingTier = getPricingTier();
+
+      const selectedBaseItemsCount = countSelectedBaseItems();
+      if (selectedBaseItemsCount > 0) {
+        basePrice = packagePricing['starters'][pricingTier] * numPeople;
+      }
+
+      // Additional item prices for items beyond the package limit
+      let additionalPrice = 0;
+      if (selectedBaseItemsCount > STARTER_ITEM_LIMIT) {
+        const additionalItemsCount = selectedBaseItemsCount - STARTER_ITEM_LIMIT;
+        additionalPrice += additionalItemsCount * ADDITIONAL_ITEM_PRICE * numPeople;
+      }
+
+      // // Additional item prices for explicitly selected additional items
+      // for (const categoryKey in additionalItems) {
+      //   for (const itemName in additionalItems[categoryKey]) {
+      //     if (additionalItems[categoryKey][itemName]) {
+      //       let itemPrice = additionalItemPricing[categoryKey] || ADDITIONAL_ITEM_PRICE;
+      //       if (categoryKey === 'desserts') {
+      //         itemPrice = numPeople <= 99 ? 4 : 3.5;
+      //       }
+
+      //       // Check for premium property and add premium cost if applicable
+      //       const premiumMultiplier = categories
+      //         .find(category => category.key === categoryKey)
+      //         ?.items.find(item => item.name === itemName)?.premium?.length || 0;
+      //       const premiumCost = premiumMultiplier * 1 * numPeople;
+
+      //       additionalPrice += (itemPrice * numPeople) + premiumCost;
+      //     }
+      //   }
+      // }
+
+      // Calculate premium cost for base items
+      for (const categoryKey in baseItems) {
+        for (const itemName in baseItems[categoryKey]) {
+          if (baseItems[categoryKey][itemName]) {
+            const premiumMultiplier = categories
+              .find(category => category.key === categoryKey)
+              ?.items.find(item => item.name === itemName)?.premium?.length || 0;
+            const premiumCost = premiumMultiplier * 1 * numPeople;
+            additionalPrice += premiumCost;
+          }
+        }
+      }
+
+      const total = basePrice + additionalPrice;
+      return total < 0 ? 0 : total; // Ensure total is not negative
+    };
+    let x = 
+    setTotalPrice(calculateTotalPrice());
   }, [baseItems, additionalItems, numPeople]);
 
   const handleBaseItemChange = (category, item) => {
